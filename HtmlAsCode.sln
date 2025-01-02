@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAsCode", "HtmlAsCode\HtmlAsCode.csproj", "{3CEB7F0B-9AB2-4656-9EB6-B3633DA8870A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAsCode.Test", "HtmlAsCode.Test\HtmlAsCode.Test.csproj", "{7E673C71-D159-491E-A8D9-9875F49324CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CEB7F0B-9AB2-4656-9EB6-B3633DA8870A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CEB7F0B-9AB2-4656-9EB6-B3633DA8870A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CEB7F0B-9AB2-4656-9EB6-B3633DA8870A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CEB7F0B-9AB2-4656-9EB6-B3633DA8870A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E673C71-D159-491E-A8D9-9875F49324CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E673C71-D159-491E-A8D9-9875F49324CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E673C71-D159-491E-A8D9-9875F49324CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E673C71-D159-491E-A8D9-9875F49324CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
