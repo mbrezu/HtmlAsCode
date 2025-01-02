@@ -42,7 +42,7 @@ public static class Renderer
         StringComparer.OrdinalIgnoreCase
     );
 
-    public static string RenderFancy(
+    public static string RenderPretty(
         this Element root,
         bool includeDoctype = true,
         int maxColumn = 100,

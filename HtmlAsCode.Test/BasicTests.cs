@@ -91,7 +91,7 @@ public class BasicTests
     }
 
     [Fact]
-    public void WithFancyFormatting()
+    public void RenderPrettifiedHtml()
     {
         var html = H(
             "html",
@@ -123,6 +123,6 @@ public class BasicTests
     </body>
 </html>
 """.Trim().ReplaceLineEndings();
-        html.RenderFancy(maxColumn: 40).Trim().ReplaceLineEndings().Should().Be(expected);
+        html.RenderPretty(maxColumn: 40).Trim().ReplaceLineEndings().Should().Be(expected);
     }
 }
