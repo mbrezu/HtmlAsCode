@@ -1,39 +1,112 @@
 ﻿using System.Text;
 using System.Web;
+using FancyPen;
 
 namespace HtmlAsCode;
 
 public static class Renderer
 {
-public interface IRoot { }
+    public interface IRoot { }
 
     public record Attribute(string Name, string Value) : IRoot;
 
     public interface INode : IRoot { }
+
     public record Element(
         string Name,
         IEnumerable<Attribute> Attributes,
-        IEnumerable<INode> Children) : INode;
+        IEnumerable<INode> Children
+    ) : INode;
 
     public record Text(string Content) : INode;
+
     public record RawText(string Content) : INode;
 
-    private static readonly HashSet<string> voidElementNames = new([
-        "area",
-        "base",
-        "br",
-        "col",
-        "embed",
-        "hr",
-        "img",
-        "input",
-        "link",
-        "meta",
-        "param",
-        "source",
-        "track",
-        "wbr",
-    ], StringComparer.OrdinalIgnoreCase);
+    private static readonly HashSet<string> voidElementNames = new(
+        [
+            "area",
+            "base",
+            "br",
+            "col",
+            "embed",
+            "hr",
+            "img",
+            "input",
+            "link",
+            "meta",
+            "param",
+            "source",
+            "track",
+            "wbr",
+        ],
+        StringComparer.OrdinalIgnoreCase
+    );
+
+    public static string RenderFancy(
+        this Element root,
+        bool includeDoctype = true,
+        int maxColumn = 100,
+        int indentBy = 4
+    )
+    {
+        Document renderAttribute(Attribute attr)
+        {
+            return Document.Concat(" ", attr.Name, "=\"", HttpUtility.HtmlEncode(attr.Value), "\"");
+        }
+        Document renderAttributes(IEnumerable<Attribute> attributes)
+        {
+            var list = attributes.ToList();
+            return Document.Format(attributes.Select(renderAttribute).ToArray());
+        }
+        Document renderNode(INode node)
+        {
+            return node switch
+            {
+                Element childElement => renderImpl(childElement),
+                Text text => (Document)text.Content,
+                RawText rawText => (Document)rawText.Content,
+                _ => throw new InvalidOperationException(
+                    $"Unexpected node type: {node.GetType().Name}"
+                ),
+            };
+        }
+        Document renderImpl(Element element)
+        {
+            var tag = Document.Concat(
+                $"<{element.Name}",
+                renderAttributes(element.Attributes),
+                ">"
+            );
+            if (voidElementNames.Contains(element.Name))
+            {
+                return tag;
+            }
+            else
+            {
+                var children = element.Children.ToList();
+                if (children.Count == 0)
+                {
+                    return Document.Format(tag, $"</{element.Name}>");
+                }
+                else
+                {
+                    return Document.Format(
+                        tag,
+                        Document.Indent(
+                            indentBy,
+                            Document.Format(children.Select(renderNode).ToArray())
+                        ),
+                        $"</{element.Name}>"
+                    );
+                }
+            }
+        }
+        var doc = includeDoctype
+            ? Document.ConcatLines("<!DOCTYPE html>", renderImpl(root))
+            : renderImpl(root);
+        var renderer = new FancyPen.Renderer(maxColumn);
+        return renderer.Render(doc);
+    }
 
     public static string Render(this Element root, bool includeDoctype = true)
     {
@@ -63,7 +136,9 @@ public interface IRoot { }
                             sb.Append(rawText.Content);
                             break;
                         default:
-                            throw new InvalidOperationException($"Unexpected node type: {child.GetType().Name}");
+                            throw new InvalidOperationException(
+                                $"Unexpected node type: {child.GetType().Name}"
+                            );
                     }
                 }
                 sb.Append($"</{element.Name}>");
