@@ -63,8 +63,8 @@ public static class Renderer
             return node switch
             {
                 Element childElement => renderImpl(childElement),
-                Text text => (Document)text.Content,
-                RawText rawText => (Document)rawText.Content,
+                Text text => HttpUtility.HtmlEncode(text.Content),
+                RawText rawText => rawText.Content,
                 _ => throw new InvalidOperationException(
                     $"Unexpected node type: {node.GetType().Name}"
                 ),

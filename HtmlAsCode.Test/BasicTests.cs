@@ -125,4 +125,22 @@ public class BasicTests
 """.Trim().ReplaceLineEndings();
         html.RenderPretty(maxColumn: 40).Trim().ReplaceLineEndings().Should().Be(expected);
     }
+
+    [Fact]
+    public void RenderPrettifiedWithRaw()
+    {
+        var html = H("html", R("<body>Hello, World!</body>"));
+        html.RenderPretty()
+            .Should()
+            .Be("<!DOCTYPE html>\n<html><body>Hello, World!</body></html>".ReplaceLineEndings());
+    }
+
+    [Fact]
+    public void RenderPrettifiedWithTextToEscape()
+    {
+        var html = H("html", H("body", "1 < 2"));
+        html.RenderPretty()
+            .Should()
+            .Be("<!DOCTYPE html>\n<html><body>1 &lt; 2</body></html>".ReplaceLineEndings());
+    }
 }
