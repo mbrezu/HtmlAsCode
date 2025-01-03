@@ -162,34 +162,39 @@ public static class Renderer
         var children = new List<INode>();
         foreach (var member in members)
         {
-            switch (member)
-            {
-                case Attribute attr:
-                    attributes.Add(attr);
-                    break;
-                case IEnumerable<Attribute> attrs:
-                    attributes.AddRange(attrs);
-                    break;
-                case Element element:
-                    children.Add(element);
-                    break;
-                case IEnumerable<INode> elements:
-                    children.AddRange(elements);
-                    break;
-                case string text:
-                    children.Add(new Text(text));
-                    break;
-                case RawText rawText:
-                    children.Add(rawText);
-                    break;
-                case Text text2:
-                    children.Add(text2);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid member type");
-            }
+            HOne(attributes, children, member);
         }
         return new Element(name, attributes, children);
+    }
+
+    private static void HOne(List<Attribute> attributes, List<INode> children, object member)
+    {
+        switch (member)
+        {
+            case Attribute attr:
+                attributes.Add(attr);
+                break;
+            case IEnumerable<Attribute> attrs:
+                attributes.AddRange(attrs);
+                break;
+            case Element element:
+                children.Add(element);
+                break;
+            case IEnumerable<INode> elements:
+                children.AddRange(elements);
+                break;
+            case string text:
+                children.Add(new Text(text));
+                break;
+            case RawText rawText:
+                children.Add(rawText);
+                break;
+            case Text text2:
+                children.Add(text2);
+                break;
+            default:
+                throw new ArgumentException("Invalid member type");
+        }
     }
 
     public static IEnumerable<Attribute> A(params string[] namesAndValues)
