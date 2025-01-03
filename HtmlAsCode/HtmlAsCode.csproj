@@ -2,19 +2,18 @@
 
     <PropertyGroup>
         <PackageId>HtmlAsCode</PackageId>
-        <Version>0.0.4</Version>
+        <Version>0.0.5</Version>
         <Authors>Miron Brezuleanu</Authors>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageLicenseExpression>BSD-2-Clause</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/mbrezu/htmlascode</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath="\" />
-        <None Include="../LICENSE" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
