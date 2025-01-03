@@ -2,13 +2,13 @@
 
     <PropertyGroup>
         <PackageId>HtmlAsCode</PackageId>
-        <Version>0.0.3</Version>
+        <Version>0.0.4</Version>
         <Authors>Miron Brezuleanu</Authors>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageLicensingFile>LICENSE</PackageLicensingFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/mbrezu/htmlascode</PackageProjectUrl>
     </PropertyGroup>
 
